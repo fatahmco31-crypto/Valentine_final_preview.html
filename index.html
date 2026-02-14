@@ -22,14 +22,14 @@
     border-radius: 20px;
     text-align: center;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
 
   img {
     width: 100%;
-    margin-bottom: 20px;
     border-radius: 15px;
+    margin-bottom: 20px;
   }
 
   h1 {
@@ -70,12 +70,18 @@
     color: #ff4f93;
     text-decoration: none;
   }
+
+  video {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 15px;
+  }
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="box" id="box">
   <img id="img" src="KNIGHT_QUEEN.PNG">
 
   <h1 id="text">Will the queen of my heart be my valentine?</h1>
@@ -91,11 +97,10 @@
   const text = document.getElementById("text");
   const yes = document.getElementById("yes");
   const no = document.getElementById("no");
-  const box = document.querySelector(".box");
+  const box = document.getElementById("box");
 
   let step = 0;
 
-  // NO button always moves
   no.onclick = () => {
     const x = Math.random() * 200 - 100;
     const y = Math.random() * 120 - 60;
@@ -107,8 +112,7 @@
 
     if (step === 1) {
       img.src = "DANCING.GIF";
-      text.innerHTML =
-        "It’s my pleasure to be your valentine.<br>Do you want to see a movie?";
+      text.innerHTML = "It’s my pleasure to be your valentine.<br>Do you want to see a movie?";
     }
 
     else if (step === 2) {
@@ -124,8 +128,19 @@
       no.style.display = "none";
 
       const link = document.createElement("a");
-      link.href = "https://drive.google.com/file/d/1IYWa8DH4OsphgKDzh3rL00LB-0tRSObk/view?usp=drivesdk"; // PUT MOVIE LINK HERE LATER
       link.innerText = "🎬 Watch the movie";
+      link.onclick = () => {
+        link.remove();
+        img.remove();
+
+        const video = document.createElement("video");
+        video.src = "movie.mp4";
+        video.controls = true;
+        video.autoplay = true;
+
+        box.appendChild(video);
+      };
+
       box.appendChild(link);
     }
   };
